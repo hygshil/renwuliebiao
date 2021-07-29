@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/jquery-3.2.1.min.js"></script>
+</head>
+<style>
+    #aa {
+        width: 800px;
+        height: 700px;
+        border: 1px dashed black;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    table {
+        width: 780px;
+        height: 15px;
+        border-collapse: collapse;
+        margin: 0 auto;
+
+    }
+
+    table tr td {
+        margin-top: 15px;
+        
+    }
+
+    #myInput {
+        width: 700px;
+        height: 20px;
+    }
+</style>
+
+<body>
+    <div id="aa">
+        <h2>任务列表</h2>
+        <span>
+            <input id="myInput" type="text">
+            <input type="button" value="add" onclick="addmyInput(this)"
+                style="color: white;background-color: blueviolet;">
+        </span> <br>
+        <div>
+            <table>
+                <tr>
+                    <th>任务</th>
+                    <th>时间</th>
+                    <th>选择</th>
+                </tr>
+                <table id="down">
+
+                </table>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        //添加
+        function addmyInput(dom) {
+            var minput = $("#myInput").val();
+            var date = new Date();
+            var day = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")[date.getDay()];
+            var datetime = date.getFullYear() + "年" + ((date.getMonth()) + 1) + "月" + date.getDate() + "日" + "  " + date.getHours() + ":" + date.getUTCMinutes() + ":" + date.getSeconds() + "  " + day;
+            // alert(datetime);
+            var downTrDom = $("<tr>"
+                + " <td>" + minput + "</td>"
+                + " <td>" + datetime + "</td>"
+                + " <td>"
+                + "  <input type='button' value='done'  onclick='over(this)'/>"
+                + "  <input type='button' value='delete' onclick='del(this)'/>"
+                + " </td>" + "</tr>"
+            );
+
+            if (minput == '') {
+                alert("输入内容不能为空");
+            } else {
+                $("#down").append(downTrDom);
+            }
+
+        }
+
+        //删除
+        function del(dom) {
+            $(dom).parent().parent().remove();
+        }
+
+        //完成
+        function over(dom) {           
+                // $('#down tr td').eq(0).css({"text-decoration": "line-through","color":"red"});
+                // $('#down tr td').eq(1).css({"text-decoration": "line-through","color":"red"});
+                $(dom).parent().parent().children().eq(0).css({"text-decoration": "line-through","color":"red"});
+                $(dom).parent().parent().children().eq(1).css({"text-decoration": "line-through","color":"red"});    
+        }
+    </script>
+</body>
+
+</html>
